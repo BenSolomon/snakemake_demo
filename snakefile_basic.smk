@@ -116,6 +116,55 @@ snakemake -s snakefile_basic.smk --use-conda
 # # to figure out how to make it. 
 
 #################
+# # [ ] Temp files
+# # Example of removing intermediate files
+
+# rule all:
+#     input:
+#         'hello_world_final.txt'
+
+# rule hello_world_A:
+#     output:
+#         temp('hello_world_A.txt')
+#     shell:
+#         '''
+#         echo 'Hello world' > {output}
+#         '''
+
+# rule hello_world_B:
+#     input:
+#         'hello_world_A.txt'
+#     output:
+#         'hello_world_B.txt'
+#     shell:
+#         '''
+#         echo "Input: {input}" > {output}
+#         '''
+
+# rule hello_world_C:
+#     input:
+#         'hello_world_B.txt'
+#     output:
+#         temp('hello_world_C.txt')
+#     shell:
+#         '''
+#         echo "Input: {input}" > {output}
+#         '''
+
+# rule hello_world_final:
+#     input:
+#         'hello_world_C.txt'
+#     output:
+#         'hello_world_final.txt'
+#     shell:
+#         '''
+#         echo "Input: {input}" > {output}
+#         '''
+
+# # Note that hello_word_final.txt and hello_world_B.txt are the only file that
+# # will be retained because they lack a temp() declaration around their output files
+
+#################
 # # [ ] Wildcards
 # # We can make this pipeline more flexible by using wildcards
 # # This will also allow us to run the same pipeline with multiple inputs
